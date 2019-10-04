@@ -4,12 +4,11 @@ import subprocess
 import random
 import string
 from flask import Flask, request, render_template, redirect
-from gtts import gTTS
-
 
 app = Flask(__name__)
 
-limit=300
+
+limit: int = 300
 
 @app.route('/')
 def form():
@@ -30,6 +29,8 @@ def form():
 @app.route('/', methods=['POST'])
 def poster():
   text = request.form['text'].replace('\\', '').replace('\'', '').replace('\"', '')
+  if not text:
+    return redirect(request.url)
   name = request.form['name']
   print(f'{request.remote_addr}|{name}> {text}')
   illegal = []
