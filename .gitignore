@@ -1,10 +1,11 @@
 .Python
 [Bb]in
 [Ii]nclude
-[Ll]ibi/
+[Ll]ibi
 [Ll]ib64
 [Ll]ocal
 [Ss]cripts
 pyvenv.cfg
+.venv/
 .venv
 pip-selfcheck.json
