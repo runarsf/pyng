@@ -1,8 +1,71 @@
-<form method='POST'>
+<!--<form method='POST'>
   <span style='color: red;'>*</span><span>Message: </span><br />
   <input name='text'><br />
   <span>Name: </span><br />
   <input name='name'>
   <br />
   <input type='submit'>
-</form>
+</form>-->
+
+<input id='text' placeholder='Message'></input><span style='color: red;'>*</span><br />
+<input id='name' placeholder='Name'></input><br />
+<button id='send' onclick='send();'>Send</button>
+
+<script>
+var cookies = {
+  set: function (cname, cvalue, cexpires, cpath) {
+    (!cvalue) && (cvalue = null);
+    (!cexpires) && (cexpires = 'Tue, 19 Jan 2038 03:14:07 UTC');
+    (!cpath) && (cpath = '/');
+    document.cookie = cname + '=' + cvalue + '; expires=' + cexpires + '; path=' + cpath;
+  },
+  get: function (cname) {
+    var cname = cname + '=';
+    var dcookie = decodeURIComponent(document.cookie);
+    var scookie = dcookie.split(';');
+    for (var i = 0; i < scookie.length; i++) {
+      var c = scookie[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(cname) == 0) {
+        return c.substring(cname.length, c.length);
+      }
+    }
+    return '';
+  },
+  clear: function () {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i];
+      var eqPos = cookie.indexOf("=");
+      var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+  }
+}
+
+function send () {
+  text = document.getElementById('text').value;
+  name = document.getElementById('name').value;
+  location.href = `https://ping.runarsf.dev/post?text=${text}&name=${name}`
+  
+  cookies.set('name', name);
+}
+
+document.getElementById('name').value = (cookies.get('name') != 'null') ? cookies.get('name') : '';
+document.getElementById('text').focus();
+document.getElementById('text').addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("send").click();
+  }
+});
+document.getElementById('name').addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("send").click();
+  }
+});
+</script>
