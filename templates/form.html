@@ -7,9 +7,65 @@
   <input type='submit'>
 </form>-->
 
-<input id='text' placeholder='Message'></input><span style='color: red;'>*</span><br />
-<input id='name' placeholder='Name'></input><br />
-<button id='send' onclick='send();'>Send</button>
+<style>
+* {
+  padding: 0;
+  margin: 0;
+
+  font-family: 'Ubuntu', sans-serif;
+  text-decoration: none;
+  outline: none;
+}
+.noselect {
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  background-color: #1a1a1a;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+input[type=text] {
+  /*width: 100%;*/
+  width: 20rem;
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  transition: 200ms;
+}
+input[type=text]:hover {
+  border: 2px solid #306998;
+}
+h1, h2, h3, h4, h5, h6, p, a {
+  color: #c3d3e0;
+}
+.required {
+  color: red;
+  padding: 3px;
+}
+</style>
+
+<link href="https://fonts.googleapis.com/css?family=Muli|Ubuntu" rel="stylesheet">
+<meta http-equiv="content-type" content="text/html" charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Pong</title>
+<main>
+  <h2 class='noselect'>Ping</h2>
+  <p class='noselect'>Ping me a message, this will be read aloud, so don't be too vulgar.</p>
+  <p class='noselect'>Thanks.</p><br/>
+  <input id='text' type='text' placeholder='Message'></input><span class='required noselect'>*</span><br/>
+  <input id='name' type='text' placeholder='Name'></input><br/>
+  <button id='send' onclick='send();'>Send</button>
+</main>
 
 <script>
 var cookies = {
@@ -49,8 +105,8 @@ var cookies = {
 function send () {
   text = document.getElementById('text').value;
   name = document.getElementById('name').value;
-  location.href = `https://ping.runarsf.dev/post?text=${text}&name=${name}`
-  
+  location.href = `/post?text=${text}&name=${name}`
+
   cookies.set('name', name);
 }
 
@@ -69,3 +125,4 @@ document.getElementById('name').addEventListener("keyup", function(event) {
   }
 });
 </script>
+
